@@ -50,7 +50,6 @@ define(
             this.requestCount = 0;
             this.scrollable = $(".l-image-thumbs-wrapper");
             this.autoScroll = openmct.time.clock() ? true : false;
-
             this.$scope.imageHistory = [];
             this.$scope.filters = {
                 brightness: 100,
@@ -197,10 +196,12 @@ define(
 
         ImageryController.prototype.onScroll = function (event) {
             this.$window.requestAnimationFrame(function () {
+                var thumbnailHeight = this.scrollable[0].children[0].offsetHeight;
+                var thumbnailWidth = this.scrollable[0].children[0].offsetWidth;
                 if (this.scrollable[0].scrollLeft <
-                    (this.scrollable[0].scrollWidth - this.scrollable[0].clientWidth) - 20 ||
+                    (this.scrollable[0].scrollWidth - this.scrollable[0].clientWidth) - thumbnailWidth ||
                     this.scrollable[0].scrollTop <
-                    (this.scrollable[0].scrollHeight - this.scrollable[0].clientHeight) - 20) {
+                    (this.scrollable[0].scrollHeight - this.scrollable[0].clientHeight) - thumbnailHeight) {
                     this.autoScroll = false;
                 } else {
                     this.autoScroll = true;
